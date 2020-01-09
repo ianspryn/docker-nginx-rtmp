@@ -157,6 +157,10 @@ ADD nginx.conf /opt/nginx/nginx.conf
 RUN mkdir -p /opt/data && mkdir /www
 ADD static /www/static
 
+# Add file renaming script
+RUN cd /home && \
+  wget https://raw.githubusercontent.com/ianspryn/docker-nginx-rtmp/master/rename-files.sh
+
 EXPOSE 1935
 EXPOSE 80
 
