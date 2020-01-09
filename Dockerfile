@@ -1,6 +1,7 @@
 ARG NGINX_VERSION=1.16.0
 ARG NGINX_RTMP_VERSION=1.2.1
 ARG FFMPEG_VERSION=4.2
+ARG DEBIAN_FRONTEND=noninteractive
 
 
 ##############################
@@ -140,8 +141,12 @@ RUN apk add --update \
   libtheora \
   opus \
   rtmpdump \
+  tzdata \
   x264-dev \
   x265-dev
+
+# Set timezone
+RUN ln -fs /usr/share/zoneinfo/America/New_York /etc/localtime
 
 COPY --from=build-nginx /opt/nginx /opt/nginx
 COPY --from=build-ffmpeg /usr/local /usr/local
