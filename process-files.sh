@@ -7,11 +7,11 @@ FULL_SERVICE_DIRECTORY=/nginx/processed/Full\ Service
 FULL_SERVICE_MP3_DIRECTORY=/nginx/processed/Full\ Service\ MP3
 
 ##### Clean Up #####
-# Remove all files that are 0 bytes
+# Remove all files that are 1 bytes or less (0 bytes wasn't reliable)
 # Exclude main video file just to be safe
 # https://superuser.com/questions/644272/
 # http://www.ducea.com/2008/02/12/linux-tips-find-all-files-of-a-particular-size/
-find $DIRNAME -not -name $BASENAME.flv -type 'f' -size -0c -delete
+find $DIRNAME -not -name $BASENAME.flv -type 'f' -size -1c -delete
 
 ##### Convert full service to mp3 and mp4 and move to folder #####
 ffmpeg -y -i $FILEPATH -acodec libmp3lame -ar 44100 -ac 1 -vcodec libx264 "$FULL_SERVICE_DIRECTORY/$BASENAME.mp4" & \
