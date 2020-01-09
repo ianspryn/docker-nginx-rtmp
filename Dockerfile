@@ -157,9 +157,10 @@ ADD nginx.conf /opt/nginx/nginx.conf
 RUN mkdir -p /opt/data && mkdir /www
 ADD static /www/static
 
-# Add file renaming script
+# Add file processing script
 RUN cd /home && \
   wget https://raw.githubusercontent.com/ianspryn/docker-nginx-rtmp/master/process-files.sh
+RUN chmod +x /home/process-files.sh
 
 EXPOSE 1935
 EXPOSE 80
