@@ -18,7 +18,7 @@ FULL_SERVICE_MP3_DIRECTORY=/nginx/processed/Full\ Service\ MP3
 # https://unix.stackexchange.com/questions/283886 - REGEX
 # Find the first most recently created file in the preaching folder that contains the basename date
 # and remove the filename extension and date.
-# We do this now incase encoding below takes forever and someone starts another stream
+# We do this now instead of later incase encoding below takes forever and someone starts another stream
 # EXAMPLE: '200107AM - Bro. Paul LaFontaine - Great sermon.mp4' becomes ' - Bro. Paul LaFontaine - Great sermon'
 cd $PREACHING_DIRECTORY
 PREACHING_FILENAME=$(ls -t $DATE_NO_PERIOD*.mp4 | head -1 | sed -e 's/^[0-9]*[A-Z]\{0,2\}//' -e 's/\.mp4$//')
@@ -51,6 +51,6 @@ FILENAME=$DATE$PREACHING_FILENAME
 mv -n "$FULL_SERVICE_DIRECTORY/$BASENAME.mp4" "$FULL_SERVICE_DIRECTORY/$FILENAME.mp4"
 mv -n "$FULL_SERVICE_MP3_DIRECTORY/$BASENAME.mp3" "$FULL_SERVICE_MP3_DIRECTORY/$FILENAME.mp3"
 
-# one liners because why not?
+# one liners because why not? It's probably broken now because I've changed a lot
 # cd /nginx/processed/Preaching && mv -n /nginx/processed/Full\ Service/$BASENAME.mp4 /nginx/processed/Full\ Service/"${$BASENAME%.*}$(ls ${$BASENAME%.*}*.mp4 | head -1 | sed -e 's/^[0-9]*[A-Z]\{2\}//' -e 's/\.mp4$//')".mp4;
 # cd /nginx/processed/Preaching && mv -n /nginx/processed/Full\ Service\ MP3/$BASENAME.mp3 /nginx/processed/Full\ Service\ MP3/"${$BASENAME%.*}$(ls ${$BASENAME%.*}*.mp4 | head -1 | sed -e 's/^[0-9]*[A-Z]\{2\}//' -e 's/\.mp4$//')".mp3;
