@@ -19,10 +19,12 @@ ffmpeg -y -i $FILEPATH -acodec libmp3lame -ar 44100 -ac 1 -vcodec libx264 "$FULL
 wait
 
 ##### Finish clean up #####
-#delete flv files if other files were successfully created
+# Remove some random flv file that is created everytime
+rm $DIRNAME/.flv
+# Delete original flv file if other files were successfully created
 if [ -f "$FULL_SERVICE_DIRECTORY/$BASENAME.mp4" ] && [ -f "$FULL_SERVICE_MP3_DIRECTORY/$BASENAME.mp3" ]
 then
-        rm $FILEPATH $DIRNAME/.flv
+        rm $FILEPATH
 fi
 
 ##### Rename Full Service MP4 and MP3 based on filename in Preaching folder #####
