@@ -1,6 +1,6 @@
 BASENAME=$1
 DIRNAME=/nginx/flv
-PATH=$DIRNAME/$BASENAME.flv
+FILEPATH=$DIRNAME/$BASENAME.flv
 
 PREACHING_DIRECTORY=/nginx/processed/Preaching
 FULL_SERVICE_DIRECTORY=/nginx/processed/Full\ Service
@@ -13,13 +13,13 @@ FULL_SERVICE_MP3_DIRECTORY=/nginx/processed/Full\ Service\ MP3
 find $DIRNAME -type 'f' -size -0c -delete
 
 ##### Convert full service to mp3 and mp4 and move to folder #####
-ffmpeg -y -i $PATH -acodec libmp3lame -ar 44100 -ac 1 /nginx/processed/Full\ Service\ MP3/$basename.mp3 & \
-        ffmpeg -y -i $PATH -acodec libmp3lame -ar 44100 -ac 1 -vcodec libx264 /nginx/processed/Full\ Service/$basename.mp4
+ffmpeg -y -i $FILEPATH -acodec libmp3lame -ar 44100 -ac 1 /nginx/processed/Full\ Service\ MP3/$basename.mp3 & \
+        ffmpeg -y -i $FILEPATH -acodec libmp3lame -ar 44100 -ac 1 -vcodec libx264 /nginx/processed/Full\ Service/$basename.mp4
 wait
 
 ##### Finish clean up #####
 #delete flv files
-rm $PATH $DIRNAME/.flv || true
+rm $FILEPATH $DIRNAME/.flv || true
 
 ##### Rename Full Service MP4 and MP3 based on filename in Preaching folder #####
 cd $PREACHING_DIRECTORY

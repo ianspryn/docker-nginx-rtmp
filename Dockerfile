@@ -159,7 +159,7 @@ ADD static /www/static
 
 # Add file renaming script
 RUN cd /home && \
-  wget https://raw.githubusercontent.com/ianspryn/docker-nginx-rtmp/master/rename-files.sh
+  wget https://raw.githubusercontent.com/ianspryn/docker-nginx-rtmp/master/process-files.sh
 
 EXPOSE 1935
 EXPOSE 80
