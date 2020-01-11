@@ -131,6 +131,7 @@ LABEL MAINTAINER Alfred Gutierrez <alf.g.jr@gmail.com>
 RUN apk add --update \
   ca-certificates \
   bash \
+  gettext \
   openssl \
   pcre \
   lame \
@@ -153,15 +154,19 @@ COPY --from=build-nginx /opt/nginx /opt/nginx
 COPY --from=build-ffmpeg /usr/local /usr/local
 COPY --from=build-ffmpeg /usr/lib/libfdk-aac.so.2 /usr/lib/libfdk-aac.so.2
 
-# Add NGINX config and static files.
-ADD nginx.conf /opt/nginx/nginx.conf
+# Add NGINX config template and static files.
+ADD nginx.conf.template /opt/nginx/nginx.conf.template
 RUN mkdir -p /opt/data && mkdir /www
 ADD static /www/static
 
-# Add file processing script
-RUN cd /home && \
-  wget https://raw.githubusercontent.com/ianspryn/docker-nginx-rtmp/master/process-files.sh
+# Add file processing and custom endpoints script
+ADD process-files.sh /home/process-files.sh
+ADD endpoints.sh /home/endpoints.sh
+
 RUN chmod +x /home/process-files.sh
+RUN chmod +x /home/endpoints.sh
+
+RUN /home/endpoints.sh
 
 EXPOSE 1935
 EXPOSE 80

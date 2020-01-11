@@ -1,0 +1,82 @@
+daemon off;
+
+error_log /dev/stdout info;
+
+events {
+    worker_connections 1024;
+}
+
+rtmp {
+    server {
+        listen 1935;
+        chunk_size 4000;
+
+        application stream {
+            live on;
+            exec ffmpeg -i rtmp://localhost:1935/stream/$name
+               -c:a libfdk_aac -b:a 128k -c:v libx264 -b:v 3500k -f flv -g 30 -r 30 -s 1280x720 -preset superfast -profile:v baseline ${VIDEO_ENDPOINT}
+               -c:a libfdk_aac -b:a 128k -c:v libx264 -b:v 1k -f flv -g 30 -r 30 -s 1280x720 -vf geq=0:128:128 -preset superfast -profile:v baseline ${AUDIO_ENDPOINT};
+
+            record all;
+            record_path /nginx/flv;
+            # Year, Month, Day, AM/AM, Hour, Minute, Second.
+            # https://pubs.opengroup.org/onlinepubs/009695399/functions/strftime.html
+            record_suffix %y%m%d%p.%H%M%S.flv;
+            exec_record_done bash -c "/home/process-files.sh $basename";
+        }        
+    }
+}
+
+http {
+    access_log /dev/stdout combined;
+
+    ssl_ciphers         HIGH:!aNULL:!MD5;
+    ssl_protocols       TLSv1 TLSv1.1 TLSv1.2;
+    ssl_session_cache   shared:SSL:10m;
+    ssl_session_timeout 10m;
+
+    server {
+        listen 80;
+
+        # Uncomment these lines to enable SSL.
+        # Update the ssl paths with your own certificate and private key.
+        # listen 443 ssl;
+        # ssl_certificate     /opt/certs/example.com.crt;
+        # ssl_certificate_key /opt/certs/example.com.key;
+
+        location /hls {
+            types {
+                application/vnd.apple.mpegurl m3u8;
+                video/mp2t ts;
+            }
+            root /opt/data;
+            add_header Cache-Control no-cache;
+            add_header Access-Control-Allow-Origin *;
+        }
+
+        location /live {
+          alias /opt/data/hls;
+          types {
+              application/vnd.apple.mpegurl m3u8;
+              video/mp2t ts;
+          }
+          add_header Cache-Control no-cache;
+          add_header Access-Control-Allow-Origin *;
+        }
+
+        location /stat {
+            rtmp_stat all;
+            rtmp_stat_stylesheet static/stat.xsl;
+        }
+
+        location /static {
+            alias /www/static;
+        }
+
+        location = /crossdomain.xml {
+            root /www/static;
+            default_type text/xml;
+            expires 24h; #asgkljdafgkjhlsdfg
+        }
+    }
+}

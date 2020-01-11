@@ -25,7 +25,7 @@ or
 * Build and run container from source:
 ```
 docker build -t nginx-rtmp .
-docker run -it -p 1935:1935 -p 8080:80 --rm nginx-rtmp
+docker run -it -v C:\some\directory:/nginx -p 1935:1935 -p 8080:80 --rm nginx-rtmp
 ```
 
 * Stream live content to:
@@ -48,7 +48,7 @@ I recommend using [Certbot](https://certbot.eff.org/docs/install.html) from [Let
 ### OBS Configuration
 * Stream Type: `Custom Streaming Server`
 * URL: `rtmp://localhost:1935/stream`
-* Stream Key: `hello`
+* Stream Key: `hello` or blank
 
 ### Watch Stream
 * In Safari, VLC or any HLS player, open:
@@ -102,6 +102,19 @@ ffmpeg version 4.2 Copyright (c) 2000-2019 the FFmpeg developers
     --disable-ffplay
     --extra-libs='-lpthread -lm'
 ```
+
+### Configure and Setting up the Project
+Open `endpoints.sh` and set your video and audio RTMP URL endpoints. The program will not work unless you specify those endpoints. Be careful not to expose your endpoints if you push changes!
+
+Run `create-directories.bat` and specify your desired directory as a parameter, or enter the paramater after you open the script. When you run your docker image, make sure you bind your directory to the same one that you specify with `create-directories.bat`. The folder architecture must be exact in order to work.
+
+Example:
+
+```
+create-directories.bat C:\docker
+```
+
+
 
 ## Resources
 * https://alpinelinux.org/

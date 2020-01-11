@@ -39,8 +39,7 @@ wait
 # Remove some random flv file that is created everytime
 rm $DIRNAME/.flv
 # Delete original flv file if other files were successfully created
-if [ -f "$FULL_SERVICE_DIRECTORY/$BASENAME.mp4" ] && [ -f "$FULL_SERVICE_MP3_DIRECTORY/$BASENAME.mp3" ]
-then
+if [ -f "$FULL_SERVICE_DIRECTORY/$BASENAME.mp4" ] && [ -f "$FULL_SERVICE_MP3_DIRECTORY/$BASENAME.mp3" ]; then
         rm $FILEPATH
 fi
 
