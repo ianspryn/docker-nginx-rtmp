@@ -12,7 +12,7 @@ if not exist %dir% (
         goto dirPrompt
 )
 
-cd %dir%
+cd /d %dir%
 
 if not exist "flv" md "flv"
 if not exist "processed" md "processed"
@@ -22,4 +22,4 @@ if not exist "Full Service - MP3" md "Full Service - MP3"
 if not exist "Preaching" md "Preaching"
 if not exist "Specials" md "Specials"
 
-cd %start%
+cd /d %start%
