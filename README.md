@@ -115,7 +115,7 @@ create-directories.bat C:\docker
 ```
 
 ### Recommended OBS Output Settings
-If you are experiencing black video on your streaming, but you have sound, set your output mode to "Simple" and your encoder to "Software (x264)"
+If you are using Azure Media Services and it is not receiving your stream, set your output mode to "Simple" and your encoder to "Software (x264)" in OBS Settings.
 
 
 ## Resources
