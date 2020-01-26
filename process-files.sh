@@ -13,7 +13,7 @@ DATE_NO_PERIOD="$(echo $DATE | sed -e 's/[A-Z]*$//')"
 
 PREACHING_DIRECTORY=/nginx/processed/Preaching
 FULL_SERVICE_DIRECTORY=/nginx/processed/Full\ Service
-FULL_SERVICE_MP3_DIRECTORY=/nginx/processed/Full\ Service\ MP3
+FULL_SERVICE_MP3_DIRECTORY=/nginx/processed/Full\ Service\ -\ MP3
 
 # https://unix.stackexchange.com/questions/283886 - REGEX
 # Find the first most recently created file in the preaching folder that contains the basename date
