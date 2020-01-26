@@ -31,7 +31,8 @@ PREACHING_FILENAME=$(ls -t $DATE_NO_PERIOD*.mp4 | head -1 | sed -e 's/^[0-9]*[A-
 find $DIRNAME -not -name $BASENAME.flv -type 'f' -size -1c -delete
 
 ##### Convert full service to mp3 and mp4 and move to folder #####
-ffmpeg -y -i $FILEPATH -acodec libmp3lame -ar 44100 -ac 1 -vcodec libx264 "$FULL_SERVICE_DIRECTORY/$BASENAME.mp4" ; ffmpeg -y -i $FILEPATH -acodec libmp3lame -ar 44100 -ac 1 "$FULL_SERVICE_MP3_DIRECTORY/$BASENAME.mp3"
+ffmpeg -y -i $FILEPATH -acodec libmp3lame -ar 44100 -ac 1 -vcodec libx264 "$FULL_SERVICE_DIRECTORY/$BASENAME.mp4"
+ffmpeg -y -i $FILEPATH -acodec libmp3lame -ar 44100 -ac 1 "$FULL_SERVICE_MP3_DIRECTORY/$BASENAME.mp3"
 
 ##### Finish clean up #####
 # Remove some random flv file that is created everytime
