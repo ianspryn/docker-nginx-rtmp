@@ -114,8 +114,8 @@ Example:
 create-directories.bat C:\docker
 ```
 
-### Recommended OBS Output settings
-If you are experiencing black video on your streaming, but you ahve sound, set your output mode to "Simple" and your encoder to "Software (x264)"
+### Recommended OBS Output Settings
+If you are experiencing black video on your streaming, but you have sound, set your output mode to "Simple" and your encoder to "Software (x264)"
 
 
 ## Resources
