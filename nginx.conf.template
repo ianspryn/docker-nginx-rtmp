@@ -76,7 +76,7 @@ http {
         location = /crossdomain.xml {
             root /www/static;
             default_type text/xml;
-            expires 24h; #asgkljdafgkjhlsdfg
+            expires 24h;
         }
     }
 }
