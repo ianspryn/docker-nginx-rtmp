@@ -114,9 +114,10 @@ Example:
 create-directories.bat C:\docker
 ```
 
-### Recommended OBS Output Settings
-If you are using Azure Media Services and it is not receiving your stream, set your output mode to "Simple" and your encoder to "Software (x264)" in OBS Settings.
+### Required OBS Output Settings
+You may choose either "NVIDIA NVENC H.264" or "x264" as your encoder.
 
+IMPORTANT: Your bitrate in OBS must match that of FFMPEG. In `nginx.conf.template` it is currently set to 3500 Kbps. If you do not set OBS to 3500 Kbps, then be sure to change the value in `nginx.conf.template`. If you do not do this, you may find it streams for a few seconds and then eventually stop and the stream becomes corrupt.
 
 ## Resources
 * https://alpinelinux.org/
