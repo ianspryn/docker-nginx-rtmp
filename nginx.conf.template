@@ -14,8 +14,8 @@ rtmp {
         application stream {
             live on;
             exec ffmpeg -i rtmp://localhost:1935/stream/$name
-               -c:a libfdk_aac -b:a 128k -c:v libx264 -b:v 3500k -f flv -g 2 -r 30 -s 1280x720 -preset superfast -profile:v baseline ${VIDEO_ENDPOINT}
-               -c:a libfdk_aac -b:a 128k -c:v libx264 -b:v 1k -f flv -g 2 -r 30 -s 1280x720 -preset superfast -profile:v baseline ${AUDIO_ENDPOINT};
+               -c:a libfdk_aac -b:a 64k -c:v libx264 -b:v 2000k -f flv -g 10 -r 30 -s 1280x720 -preset superfast -profile:v baseline ${VIDEO_ENDPOINT}
+               -c:a libfdk_aac -b:a 64k -c:v libx264 -b:v 1k -f flv -g 10 -r 30 -s 1280x720 -preset superfast -profile:v baseline ${AUDIO_ENDPOINT};
             # -vf geq=0:128:128 
             record all;
             record_path /nginx/flv;
